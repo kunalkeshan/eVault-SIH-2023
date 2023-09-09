@@ -1,22 +1,17 @@
-import { Db, MongoClient } from 'mongodb';
-import config from '../config';
+require('dotenv').config();
 
-let db: Db;
+const { Client } = require('pg');
 
-async function initializeClient(): Promise<Db> {
-  const client = await MongoClient.connect(config.databaseURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    ignoreUndefined: true,
-  });
+const isProduction = process.env.NODE_ENV === 'production';
 
-  return client.db();
-}
+const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
-export default async (): Promise<Db> => {
-  if (!db) {
-    db = await initializeClient();
-  }
+const client = new Client({
+  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+  ssl: isProduction,
+});
 
-  return db;
+export default async () => {
+  await client.connect();
+  return client;
 };

@@ -26,6 +26,11 @@ export default {
   },
 
   /**
+   * Used BCrypt for Salting
+   */
+  salt: parseInt(process.env.SALT || '100'),
+
+  /**
    * API configs
    */
   api: {
