@@ -7,12 +7,14 @@ const authRouter = Router();
 async function handleSignUp(req: Request, res: Response) {
   try {
     console.log(req.body);
-    const result: any = await createUser(req.body);
+    const result = await createUser(req.body);
+    // console.log('harsh', result);
     if (result.bool) {
       res.status(201).json({
         message: 'Success',
       });
     } else {
+      //   console.log('here');
       throw {
         status: 400,
         message: result.message,

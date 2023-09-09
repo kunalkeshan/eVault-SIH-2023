@@ -1,41 +1,46 @@
 import { createToken, verifyToken } from './../../shared/token';
-import getClient from '../../loaders/database'; // Adjust the import based on your folder structure
+import { getClient, closeClient } from '../../loaders/database';
 import LoggerInstance from '../../loaders/logger';
 import User from './model';
 import * as bcrypt from 'bcrypt';
 import config from '../../config';
 
-export async function createUser(user: User) {
+export async function createUser(client: User) {
+  const database = await getClient(); // Obtain the database client connection
+
   try {
-    console.log(user.email, user.password);
-    const database = await getClient(); // Obtain the database client connection
+    // console.log(client.email, client.password);
 
-    const results = await database.query(`SELECT * FROM users WHERE email = $1`, [user.email]);
+    const results = await database.query(`SELECT * FROM users WHERE email = $1`, [client.email]);
+    if (results.rows.length > 0) {
+      throw {
+        status: 400,
+        message: 'User already exists',
+      };
+    }
 
-    console.log(results.rows);
+    // hash the password and store in the database
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(client.password, salt);
+
+    const result = await database.query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *`, [
+      client.name,
+      client.email,
+      hash,
+    ]);
+
+    return {
+      bool: true,
+      message: 'Success, User created.',
+      status: 200,
+    };
   } catch (err) {
     LoggerInstance.error(err);
-    throw err;
+    return {
+      bool: false, // Indicate that an error occurred
+      message: err.message || 'Request Failed',
+    };
+  } finally {
+    closeClient(database); // Close the client connection when done
   }
 }
-
-// if (results.rows.length > 0) {
-//   const user = results.rows[0];
-
-//   bcrypt.compare(client.password, user.password, (err, isMatch) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//     if (isMatch) {
-//       return done(null, user);
-//     } else {
-//       //password is incorrect
-//       return done(null, false, { message: 'Password is incorrect' });
-//     }
-//   });
-// } else {
-//   // No user
-//   return done(null, false, {
-//     message: 'No user with that email address',
-//   });
-// }
