@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { FiGithub } from "react-icons/fi";
+import { SiBlockchaindotcom } from "react-icons/si";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,8 +15,11 @@ export default function Navbar() {
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="md:flex md:items-center md:gap-12">
-            <a className="block " href="/">
-              <span className="text-white font-bold text-xl ">E-vault</span>
+            <a className=" flex space-x-3" href="/">
+              <SiBlockchaindotcom className="text-white text-3xl" />
+              <span className="text-white font-bold text-xl ">
+                Legal Ledger
+              </span>
             </a>
           </div>
 
