@@ -23,7 +23,7 @@ export default function Footer() {
             <li>
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href="/"
+                href="/dashboard"
               >
                 Dashboard
               </a>
@@ -32,7 +32,7 @@ export default function Footer() {
             <li>
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href="/"
+                href="/uploadSection"
               >
                 File Upload
               </a>
@@ -41,7 +41,7 @@ export default function Footer() {
             <li>
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href="/"
+                href="/profile"
               >
                 Profile
               </a>
