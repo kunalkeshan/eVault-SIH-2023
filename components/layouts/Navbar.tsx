@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 export default function Navbar() {
   return (
     <header className=" sticky top-0 z-50 bg-blue-500">
@@ -23,29 +24,29 @@ export default function Navbar() {
             <nav aria-label="Global">
               <ul className="flex items-center gap-6 text-sm">
                 <li>
-                  <a
-                    className="text-white transition hover:bg-white hover:text-black px-4 py-3 rounded-md"
-                    href="#Dashboard"
+                  <Link
+                    className="text-white transition hover:bg-white hover:text-black px-4 py-3 rounded-xl ease-in"
+                    href="/dashboard"
                   >
                     Dashboard
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    className="text-white transition hover:bg-white hover:text-black px-4 py-3 rounded-md ease-in"
-                    href="#FileUpload"
+                  <Link
+                    className="text-white transition hover:bg-white hover:text-black px-4 py-3 rounded-xl ease-in"
+                    href="/uploadSection"
                   >
                     File Upload
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    className="text-white transition hover:bg-white hover:text-black px-4 py-3 rounded-md ease-in"
-                    href="#Profile"
+                  <Link
+                    className="text-white transition hover:bg-white hover:text-black px-4 py-3 rounded-xl ease-in"
+                    href="/profile"
                   >
                     Profile
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -57,7 +58,7 @@ export default function Navbar() {
                 <DropdownMenuTrigger className="text-white rounded border px-4 py-2">
                   Open
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-gray-400 text-black">
+                <DropdownMenuContent className="bg-gray-100 rounded-lg text-black">
                   <DropdownMenuItem>Dashboard</DropdownMenuItem>
                   <DropdownMenuItem>File Upload</DropdownMenuItem>
                   <DropdownMenuItem>Profile</DropdownMenuItem>
