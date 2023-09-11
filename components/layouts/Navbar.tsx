@@ -1,44 +1,72 @@
+import { Button } from "@/components/ui/button";
+import { FiGithub } from "react-icons/fi";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 export default function Navbar() {
   return (
-    <div className="navbar bg-[#414df9] drop-shadow-lg">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-            </svg>
-          </label>
-        </div>
-        <a className="btn btn-ghost normal-case text-xl">E-vault</a>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li><a>library</a></li>
-          <li tabIndex={0}>
-            <details>
-              <summary>Add a new file</summary>
-            </details>
-          </li>
-          
-        </ul>
-      </div>
-      <div className="dropdown dropdown-end ">
-        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-          <div className="w-10 rounded-full">
-            
-          </div>
-        </label>
-        <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-          <li>
-            <a className="justify-between">
-              Profile
-              <span className="badge">New</span>
+    <header className=" sticky top-0 z-50 bg-blue-500">
+      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          <div className="md:flex md:items-center md:gap-12">
+            <a className="block " href="/">
+              <span className="text-white font-bold text-xl ">E-vault</span>
             </a>
-          </li>
-          <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
-        </ul>
+          </div>
+
+          <div className="hidden md:block">
+            <nav aria-label="Global">
+              <ul className="flex items-center gap-6 text-sm">
+                <li>
+                  <a
+                    className="text-white transition hover:bg-white hover:text-black px-4 py-3 rounded-md"
+                    href="#Dashboard"
+                  >
+                    Dashboard
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    className="text-white transition hover:bg-white hover:text-black px-4 py-3 rounded-md ease-in"
+                    href="#FileUpload"
+                  >
+                    File Upload
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-white transition hover:bg-white hover:text-black px-4 py-3 rounded-md ease-in"
+                    href="#Profile"
+                  >
+                    Profile
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="block md:hidden">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="text-white rounded border px-4 py-2">
+                  Open
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-gray-400 text-black">
+                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                  <DropdownMenuItem>File Upload</DropdownMenuItem>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </header>
   );
 }
