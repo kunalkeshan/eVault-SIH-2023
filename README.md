@@ -1,4 +1,4 @@
-<div><h1 align="center">eVault</h1> </div>
+<div><h1 align="center">Legal Ledger⚖️</h1> </div>
 
 
 ## Problem Statement 📝
