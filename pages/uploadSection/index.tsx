@@ -6,7 +6,7 @@ const DynamicFileUploadForm = dynamic(() => import("./FileUploadForm"), {
 
 export default function uploadSection() {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center h-screen">
       <div className="mx-auto w-full max-w-[550px] bg-white">
         <div className="text-left sm:text-left px-9">
           <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">

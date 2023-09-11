@@ -3,7 +3,7 @@ import React from "react";
 function FileUploadForm() {
   return (
     <form>
-      <label htmlFor="file-input" className="sr-only">
+      <label htmlFor="file-input" className="sr-only text-black">
         Choose file
       </label>
       <input
