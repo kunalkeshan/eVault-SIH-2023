@@ -6,7 +6,6 @@ const authRouter = Router();
 
 async function handleSignUp(req: Request, res: Response) {
   try {
-    console.log(req.body);
     const result = await createUser(req.body);
     // console.log('harsh', result);
     if (result.bool) {

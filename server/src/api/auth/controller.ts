@@ -19,6 +19,8 @@ export async function createUser(client: User) {
       };
     }
 
+    console.log('after conflict');
+
     // hash the password and store in the database
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(client.password, salt);
