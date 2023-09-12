@@ -1,4 +1,7 @@
 import { SiBlockchaindotcom } from 'react-icons/si';
+import { useAccount } from 'wagmi';
+import { useContext } from 'react';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 import {
 	DropdownMenu,
@@ -9,6 +12,8 @@ import {
 import Link from 'next/link';
 
 export default function Navbar() {
+	const { address, isConnecting, isDisconnected } = useAccount();
+
 	return (
 		<header className=' sticky top-0 z-50 bg-blue-500'>
 			<div className='mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8'>
@@ -49,6 +54,9 @@ export default function Navbar() {
 									>
 										Profile
 									</Link>
+								</li>
+								<li>
+									<ConnectButton accountStatus={'avatar'} />
 								</li>
 							</ul>
 						</nav>
