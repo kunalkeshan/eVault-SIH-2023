@@ -84,8 +84,9 @@ export default function Hero() {
                   Decentralized
                 </h3>
                 <p className="mb-2 text-gray-500">
-                  Filler text is dummy text which has no meaning however looks
-                  very similar to real text.
+                  Legal Ledger uses decentralization to ensure that your legal
+                  records are secure and accessible from multiple locations,
+                  reducing the risk of data loss.
                 </p>
                 <a
                   href="#"
@@ -120,8 +121,9 @@ export default function Hero() {
                   Immutable
                 </h3>
                 <p className="mb-2 text-gray-500">
-                  Filler text is dummy text which has no meaning however looks
-                  very similar to real text.
+                  With Legal Ledger, your legal documents are stored in an
+                  unalterable state, guaranteeing their integrity and
+                  reliability over time.
                 </p>
                 <a
                   href="#"
@@ -160,8 +162,9 @@ export default function Hero() {
                   Secure
                 </h3>
                 <p className="mb-2 text-gray-500">
-                  Filler text is dummy text which has no meaning however looks
-                  very similar to real text.
+                  Legal Ledger prioritizes top-tier security measures, including
+                  encryption and authentication, to protect your sensitive legal
+                  records from unauthorized access.
                 </p>
                 <a
                   href="#"
