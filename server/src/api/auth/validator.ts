@@ -18,6 +18,7 @@ export async function signUpValidator(req: Request, res: Response, next: NextFun
 export async function loginValidator(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     req.body = await loginSchema.validate(req.body, { stripUnknown: true });
+    console.log('here');
     next();
   } catch (e) {
     LoggerInstance.error(e);

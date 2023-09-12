@@ -49,18 +49,19 @@ export async function loginUser(email: string, password: string): Promise<LoginR
   try {
     const database = await getClient(); // Obtain the database client connection
     const results = await database.query(`SELECT * FROM users WHERE email = $1`, [email]);
+
     if (results.rows.length === 0) {
       throw {
         status: 400,
         message: 'User does not exists, please register first',
       };
     } else {
-      if (bcrypt.compareSync(password, results.password)) {
+      if (bcrypt.compareSync(password, results.rows[0].password)) {
         return {
           message: 'Login Successful',
           status: 200,
-          accessToken: createToken({ id: results._id.toString() }, config.jwtSecret, '1d'),
-          refreshToken: createToken({ id: results._id.toString() }, config.jwtSecret, '2d'),
+          accessToken: createToken({ id: results.rows[0].id.toString() }, config.jwtSecret, '1d'),
+          refreshToken: createToken({ id: results.rows[0].id.toString() }, config.jwtSecret, '2d'),
         };
       } else {
         throw {
@@ -83,7 +84,8 @@ export async function getProfile(token: string): Promise<User> {
   try {
     const database = await getClient(); // Obtain the database client connection
     id = verifyToken(token, config.jwtSecret).id;
-    const results = await database.query(`SELECT * FROM users WHERE id = $1`, [token]);
+
+    const results = await database.query(`SELECT * FROM users WHERE id = $1`, [id]);
     if (results.rows.length === 0) {
       throw {
         status: 400,
