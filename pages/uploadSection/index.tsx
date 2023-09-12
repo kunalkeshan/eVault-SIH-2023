@@ -26,7 +26,7 @@ export default function uploadSection() {
     const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY })
 
     var res = await nftstorage.store({
-        fileURL : filePath,
+        image : filePath,
         name : name,
         description : description,
         // atttributes : [{
