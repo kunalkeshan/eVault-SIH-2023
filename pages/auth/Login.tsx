@@ -1,12 +1,18 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { loginUser } from '@/lib/server';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import { parse } from 'cookie';
 
 export default function Login() {
 	const [input, setInput] = useState({
 		email: '',
 		password: '',
 	});
+	const { toast } = useToast();
+	const router = useRouter();
 
 	const handleUpdateInput =
 		(prop: keyof typeof input) =>
@@ -23,9 +29,17 @@ export default function Login() {
 		e.preventDefault();
 		try {
 			const res = await loginUser(input);
-			console.log(res);
+			toast({
+				title: 'Success',
+				description: 'Redirecting you to dashboard now.',
+			});
+			router.replace('/dashboard');
 		} catch (error) {
-			console.log(error);
+			toast({
+				title: 'Error',
+				description: 'Unable to login, try again later.',
+				variant: 'destructive',
+			});
 		}
 	};
 
@@ -117,3 +131,20 @@ export default function Login() {
 		</section>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps<{}> = async ({ req }) => {
+	const cookies = parse(req.headers.cookie ?? '');
+	if (
+		cookies['legal-ledger-access-token'] &&
+		cookies['legal-ledger-refresh-token']
+	) {
+		return {
+			props: {},
+			redirect: {
+				destination: '/dashboard',
+				permanent: true,
+			},
+		};
+	}
+	return { props: {} };
+};

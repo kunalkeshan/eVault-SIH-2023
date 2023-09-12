@@ -1,4 +1,6 @@
 import Layout from '@/components/layouts/Layout';
+import { parse } from 'cookie';
+import { GetServerSideProps } from 'next';
 import React from 'react';
 
 function profile() {
@@ -59,3 +61,20 @@ function profile() {
 }
 
 export default profile;
+
+export const getServerSideProps: GetServerSideProps<{}> = async ({ req }) => {
+	const cookies = parse(req.headers.cookie ?? '');
+	if (
+		!cookies['legal-ledger-access-token'] &&
+		!cookies['legal-ledger-refresh-token']
+	) {
+		return {
+			props: {},
+			redirect: {
+				destination: '/auth/login',
+				permanent: true,
+			},
+		};
+	}
+	return { props: {} };
+};

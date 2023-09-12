@@ -12,5 +12,6 @@ export const signUpUser = async (data: User) => {
 
 export const loginUser = async (data: Pick<User, 'email' | 'password'>) => {
 	const response = await api.post('/api/auth/login', data);
-	return response.data;
+	await axios.post('/api/auth/login', { ...response.data });
+	return Promise.resolve();
 };

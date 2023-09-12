@@ -11,6 +11,8 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
+import { GetServerSideProps } from 'next';
+import { parse } from 'cookie';
 
 const records = [
 	{
@@ -47,39 +49,60 @@ const records = [
 
 export default function index() {
 	return (
-		<div className='max-h-[60vh] overflow-y-auto w-[95vw] md:w-[65vw] border-2 border-neutral-500 mx-auto my-12'>
-			<Table>
-				<TableCaption></TableCaption>
-				<TableHeader>
-					<TableRow>
-						<TableHead className='text-center'>Name</TableHead>
-						<TableHead className='text-center'>
-							Description
-						</TableHead>
-						<TableHead className='text-center'>Document</TableHead>
-					</TableRow>
-				</TableHeader>
-				<TableBody>
-					{records.map((record) => (
-						<TableRow key={record.name}>
-							<TableCell className='text-center'>
-								{record.name}
-							</TableCell>
-							<TableCell className='text-center'>
-								{record.description}
-							</TableCell>
-							<TableCell className='text-center'>
-								<Link
-									href={record.image}
-									className='px-4 py-2 bg-blue-600 text-white rounded-xl'
-								>
-									View
-								</Link>
-							</TableCell>
+		<Layout>
+			<div className='max-h-[60vh] overflow-y-auto w-[95vw] md:w-[65vw] border-2 border-neutral-500 mx-auto my-12'>
+				<Table>
+					<TableCaption></TableCaption>
+					<TableHeader>
+						<TableRow>
+							<TableHead className='text-center'>Name</TableHead>
+							<TableHead className='text-center'>
+								Description
+							</TableHead>
+							<TableHead className='text-center'>
+								Document
+							</TableHead>
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
-		</div>
+					</TableHeader>
+					<TableBody>
+						{records.map((record) => (
+							<TableRow key={record.name}>
+								<TableCell className='text-center'>
+									{record.name}
+								</TableCell>
+								<TableCell className='text-center'>
+									{record.description}
+								</TableCell>
+								<TableCell className='text-center'>
+									<Link
+										href={record.image}
+										className='px-4 py-2 bg-blue-600 text-white rounded-xl'
+									>
+										View
+									</Link>
+								</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</div>
+		</Layout>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps<{}> = async ({ req }) => {
+	const cookies = parse(req.headers.cookie ?? '');
+	if (
+		!cookies['legal-ledger-access-token'] &&
+		!cookies['legal-ledger-refresh-token']
+	) {
+		return {
+			props: {},
+			redirect: {
+				destination: '/auth/login',
+				permanent: true,
+			},
+		};
+	}
+	return { props: {} };
+};

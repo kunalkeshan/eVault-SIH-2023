@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useToast } from '@/components/ui/use-toast';
 import { signUpUser } from '@/lib/server';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import { parse } from 'cookie';
 
 export default function SignIn() {
 	const { toast } = useToast();
@@ -36,14 +38,14 @@ export default function SignIn() {
 			await signUpUser(data);
 			toast({
 				title: 'Success',
-				desciption: 'Account created! redirecting to login.',
+				description: 'Account created! redirecting to login.',
 			});
 			router.replace('/auth/login');
 		} catch (error) {
 			toast({
 				variant: 'destructive',
 				title: 'Error',
-				desciption: 'Unable to singup, try again later.',
+				description: 'Unable to singup, try again later.',
 			});
 		}
 	};
@@ -174,3 +176,20 @@ export default function SignIn() {
 		</section>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps<{}> = async ({ req }) => {
+	const cookies = parse(req.headers.cookie ?? '');
+	if (
+		cookies['legal-ledger-access-token'] &&
+		cookies['legal-ledger-refresh-token']
+	) {
+		return {
+			props: {},
+			redirect: {
+				destination: '/dashboard',
+				permanent: true,
+			},
+		};
+	}
+	return { props: {} };
+};

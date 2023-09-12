@@ -5,12 +5,14 @@ import mime from 'mime';
 import fs from 'fs';
 import path from 'path';
 import Layout from '@/components/layouts/Layout';
+import { GetServerSideProps } from 'next';
+import { parse } from 'cookie';
 
 // const DynamicFileUploadForm = dynamic(() => import("./FileUploadForm"), {
 //   ssr: false, // Disable server-side rendering for this component
 // });
 
-export default function uploadSection() {
+export default function UploadSection() {
 	const [filePath, setFilePath] = useState(null);
 	const [name, setName] = useState('');
 	const [url, setUrl] = useState(null);
@@ -121,3 +123,20 @@ export default function uploadSection() {
 		</Layout>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps<{}> = async ({ req }) => {
+	const cookies = parse(req.headers.cookie ?? '');
+	if (
+		!cookies['legal-ledger-access-token'] &&
+		!cookies['legal-ledger-refresh-token']
+	) {
+		return {
+			props: {},
+			redirect: {
+				destination: '/auth/login',
+				permanent: true,
+			},
+		};
+	}
+	return { props: {} };
+};
