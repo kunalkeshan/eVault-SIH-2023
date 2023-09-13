@@ -5,6 +5,8 @@ import { signUpUser } from "@/lib/server";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { parse } from "cookie";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export default function SignIn() {
   const { toast } = useToast();
@@ -112,6 +114,26 @@ export default function SignIn() {
                   onChange={handleUpdateInput("last")}
                   required
                 />
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Who are you?
+                </label>
+                <RadioGroup defaultValue="option-one">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="advocate" id="advocate" />
+                    <Label htmlFor="advocate">Advocate</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="judge" id="judge" />
+                    <Label htmlFor="judge">Judge</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="client" id="client" />
+                    <Label htmlFor="client">Client</Label>
+                  </div>
+                </RadioGroup>
               </div>
 
               <div className="col-span-6">
