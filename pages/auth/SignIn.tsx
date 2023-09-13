@@ -6,7 +6,13 @@ import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { parse } from "cookie";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function SignIn() {
   const { toast } = useToast();
@@ -90,6 +96,7 @@ export default function SignIn() {
                   type="text"
                   id="FirstName"
                   name="first_name"
+                  placeholder="John"
                   className="mt-1 w-full rounded-lg border-gray-500 bg-gray-100 text-sm text-gray-700 shadow-sm p-2"
                   value={input.first}
                   onChange={handleUpdateInput("first")}
@@ -109,6 +116,7 @@ export default function SignIn() {
                   type="text"
                   id="LastName"
                   name="last_name"
+                  placeholder="Doe"
                   className="mt-1 w-full rounded-lg border-gray-500 bg-gray-100 text-sm text-gray-700 shadow-sm p-2"
                   value={input.last}
                   onChange={handleUpdateInput("last")}
@@ -120,20 +128,33 @@ export default function SignIn() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Who are you?
                 </label>
-                <RadioGroup defaultValue="option-one">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="advocate" id="advocate" />
-                    <Label htmlFor="advocate">Advocate</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="judge" id="judge" />
-                    <Label htmlFor="judge">Judge</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="client" id="client" />
-                    <Label htmlFor="client">Client</Label>
-                  </div>
-                </RadioGroup>
+                <Select>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Choose" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="light">Lawyer</SelectItem>
+                    <SelectItem value="dark">Judge</SelectItem>
+                    <SelectItem value="system">Client</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="lawyerID"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Judge / Lawyers ID
+                </label>
+
+                <input
+                  type="number"
+                  id="lawyerID"
+                  name="lawyer_ID"
+                  placeholder="License number"
+                  className="mt-1 w-full rounded-lg border-gray-500 bg-gray-100 text-sm text-gray-700 shadow-sm p-2"
+                />
               </div>
 
               <div className="col-span-6">
@@ -148,6 +169,7 @@ export default function SignIn() {
                   type="email"
                   id="Email"
                   name="email"
+                  placeholder="john@gmail.com"
                   className="mt-1 w-full rounded-lg border-gray-500 bg-gray-100 text-sm text-gray-700 shadow-sm p-2"
                   value={input.email}
                   onChange={handleUpdateInput("email")}
