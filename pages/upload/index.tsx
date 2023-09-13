@@ -1,8 +1,8 @@
 // import dynamic from "next/dynamic";
 import { useState } from 'react';
+import { NFTStorage, File } from 'nft.storage';
 import Layout from '@/components/layouts/Layout';
 import { GetServerSideProps } from 'next';
-const { NFTStorage, File } = require('nft.storage');
 import { parse } from 'cookie';
 
 // const DynamicFileUploadForm = dynamic(() => import("./FileUploadForm"), {
