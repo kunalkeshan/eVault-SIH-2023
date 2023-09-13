@@ -1,16 +1,16 @@
 // import dynamic from "next/dynamic";
-import { useState } from 'react';
-import { NFTStorage, File } from 'nft.storage';
+import { MouseEvent, useState } from 'react';
 import Layout from '@/components/layouts/Layout';
 import { GetServerSideProps } from 'next';
 import { parse } from 'cookie';
+const { NFTStorage, File } = require('nft.storage');
 
 // const DynamicFileUploadForm = dynamic(() => import("./FileUploadForm"), {
 //   ssr: false, // Disable server-side rendering for this component
 // });
 
 export default function UploadSection() {
-	const [filePath, setFilePath] = useState(null);
+	const [filePath, setFilePath] = useState<null | File>(null);
 	const [name, setName] = useState('');
 	const [url, setUrl] = useState();
 	const [ipfsimage, setIpfsimage] = useState<null | string>(null);
@@ -20,9 +20,13 @@ export default function UploadSection() {
 	const NFT_STORAGE_KEY =
 		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGM0QThkRENiMGM1MjQwQTJDYjdBMzIwZGRGMDg5QUJhMERDNDVDZkYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2MjE5NTgzMzEwMywibmFtZSI6InRwZyJ9.ncleHk0ziyvHC-8RSKo07nxdgJ9OidmguX_YzX-L0p4';
 
-	const storeNFT = async (e, filePath, name, description) => {
+	const storeNFT = async (
+		e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+		filePath: File,
+		name: string,
+		description: string
+	) => {
 		e.preventDefault();
-		console.log(filePath instanceof File);
 		const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY });
 
 		var res = await nftstorage.store({
@@ -101,7 +105,9 @@ export default function UploadSection() {
 								type='file'
 								name='file-input'
 								id='file-input'
-								onChange={(e) => setFilePath(e.target.files[0])}
+								onChange={(e) =>
+									setFilePath(e.target.files![0])
+								}
 								className='block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500  file:bg-transparent file:border-0 file:bg-blue-600 file:mr-4 file:py-3 file:px-4 0 file:text-white'
 							/>
 						</div>
@@ -109,7 +115,7 @@ export default function UploadSection() {
 							<button
 								className='hover:shadow-form w-full rounded-md bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none'
 								onClick={(e) =>
-									storeNFT(e, filePath, name, description)
+									storeNFT(e, filePath!, name, description)
 								}
 							>
 								Send File
@@ -117,7 +123,7 @@ export default function UploadSection() {
 						</div>
 					</form>
 					<label>Metadata : {url}</label>
-					{<img src={ipfsimage} width='30%' />}
+					{<img src={ipfsimage || ''} width='30%' />}
 				</div>
 			</div>
 		</Layout>
