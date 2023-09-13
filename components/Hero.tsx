@@ -1,5 +1,8 @@
 import Link from "next/link";
 // import Image from 'next/image' // need to add img src to remote orgins
+import { TbBrandNextjs } from "react-icons/tb";
+import { BiLogoPostgresql, BiLogoNodejs } from "react-icons/bi";
+import { SiIpfs } from "react-icons/si";
 
 export default function Hero() {
   return (
@@ -178,6 +181,35 @@ export default function Hero() {
             </div>
             {/* <!-- feature - end --> */}
             {/* <!-- feature - start --> */}
+          </div>
+        </div>
+        <div className="bg-white py-6 sm:py-8 lg:py-12">
+          <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+            <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">
+              Technologies Used by us
+            </h2>
+
+            <div className="grid grid-cols-2 gap-6 rounded-lg bg-gray-100 p-6 sm:h-40 sm:content-evenly md:grid-cols-4">
+              <div className="flex justify-center text-gray-400 items-center space-x-2">
+                <TbBrandNextjs className="h-10 w-10" />
+                <span className="text-2xl">Next.Js</span>
+              </div>
+
+              <div className="flex justify-center text-gray-400 items-center space-x-2">
+                <BiLogoPostgresql className="h-10 w-10" />
+                <span className="text-2xl">PostgresSql</span>
+              </div>
+
+              <div className="flex justify-center text-gray-400 items-center space-x-2">
+                <SiIpfs className="h-10 w-10" />
+                <span className="text-2xl">IPFS</span>
+              </div>
+
+              <div className="flex justify-center text-gray-400 text-center space-x-2">
+                <BiLogoNodejs className="h-10 w-10" />
+                <span className="text-2xl">Node.Js</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
