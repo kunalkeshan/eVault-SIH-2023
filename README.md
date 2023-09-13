@@ -21,10 +21,7 @@ Even if the user logged out, they were still able to access other documents thro
 
 - Next.js
 - IPFS
-- ARWeave
 - Bundlr
 - Filecoin
 - Node.js
 - Express.js
-
-
